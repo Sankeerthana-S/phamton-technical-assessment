@@ -1,0 +1,18 @@
+Kindly refer to the below mentioned MySQL queries for the left and right join 
+to get Organ donar details from two tables donar_details and donar_medical_report.
+
+LEFT JOIN Query:
+
+    SELECT d._id, d.name, d.phone_number, m.blood_group, m.organ AS "Donates Organ"
+    FROM donar_details d
+    LEFT JOIN donar_medical_report m
+    ON d.id = m.id
+    ORDER BY d.id
+
+RIGHT JOIN Query:
+
+    SELECT d._id, d.name, d.phone_number, m.blood_group, m.organ AS "Donates Organ"
+    FROM donar_details d
+    RIGHT JOIN donar_medical_report m
+    N d.id = m.id
+    ORDER BY d.id

@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <div style="display: block;">
+            <h3>Sign Up 1</h3>
+            <input type="text" placeholder="User Name" required>
+            <input type="password" id= 'pass1' placeholder="Password" required>
+            <input type="password" id='confirm_pass1' placeholder="Confirm password" required>
+            <button id='sign_up1'>Sign Up</button>
+        </div>
+        <div style="display: block;">
+            <h3>Sign Up 2</h3>
+            <input type="text" placeholder="User Name" required>
+            <input type="password" id= 'pass2' placeholder="Password" required>
+            <input type="password" id='confirm_pass2' placeholder="Confirm password" required>
+            <button id='sign_up2'>Sign Up</button>
+        </div>
+        <script>
+            document.getElementById('sign_up1').onclick = (e)=>{
+                let pass1 = document.getElementById('pass1').value 
+                let confirm_pass1 = document.getElementById('confirm_pass1').value 
+                const check_passwords = new Promise(function (resolve, reject) {
+                    if (pass1 === confirm_pass1) {
+                      resolve();
+                    } else {
+                      reject();
+                    }
+                });
+          
+                check_passwords.then(()=> {
+                  alert("Successfully registered");
+                  window.location.reload();
+                })
+                .catch(()=> {
+                  alert("Passwords doesn't match");
+                  window.location.reload();
+                });
+            }
+            
+        
+            document.getElementById('sign_up2').onclick = (e)=>{
+                let pass1 = document.getElementById('pass1').value 
+                let confirm_pass1 = document.getElementById('confirm_pass1').value 
+                const check_passwords_promise = function () {
+                    const promise = new Promise(function (resolve, reject) {
+                        if (pass1 === confirm_pass1) {
+                          resolve('Successfully registered');
+                        } else {
+                          reject("Passwords doesn't match");
+                        }
+                    });
+                    return promise;
+                } ;
+          
+                async function check_passwords() {
+                  try {
+                    let message = await check_passwords_promise();
+                    alert(message);
+                    window.location.reload();
+                  } catch (error) {
+                    alert("Error: " + error);
+                    window.location.reload();
+                  }
+                }
+            
+                check_passwords();
+            }
+        </script>        
+    </body>
+</html>

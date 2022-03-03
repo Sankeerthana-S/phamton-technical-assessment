@@ -1,0 +1,95 @@
+
+<h1>Upcoming new course for you</h1>
+<p>Upskill yourself with the valuable courses</p>
+<div>
+    <p>Angular Crash Course <br> What you learn ? </p>
+    <ul style="list-style-type:disc">
+        <li>Introduction to HTML,CSS, JS.</li>
+        <li>Working with Objects.</li>
+        <li>Angular JS Basics.</li>
+        <li>Filters and Directives</li>
+    </ul>
+    <button type="submit" id="rzp-create-order">Place order</button>
+</div>
+
+<br><hr><br>
+
+<label for="oderview">View Order ID: </label>
+<input type="text" id = 'rzp-text'><br>
+<button id = 'rzp-order-view'>Buy for 499</button>
+
+<br><hr><br>
+
+<label for="orderID">Order ID: </label>
+<input type="text" name="" id="order-id">
+<label for="payID">Payment ID: </label>
+<input type="text" name="" id="order-pay-id">
+<label for="sign">Signature: </label>
+<input type="text" name="" id="order-sig">
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+document.getElementById('rzp-create-order').onclick = (e)=>{
+        let url = '/payment/order'
+        let params = {
+            amount: 49900,
+            currency: 'INR',
+            receipt: `order_placed_1`,
+            payment_capture: '1'
+        }
+        let xmlHttp = new XMLHttpRequest()
+        xmlHttp.onreadystatechange = (res)=>{
+            if(xmlHttp.readyState === 4){
+                res = JSON.parse(xmlHttp.responseText)
+                document.getElementById('rzp-text').value = res.sub.id
+            }
+        }
+        xmlHttp.open("POST", url, true)
+        xmlHttp.setRequestHeader('Content-type', 'application/json')
+        xmlHttp.send(JSON.stringify(params))
+    }
+
+    document.getElementById('rzp-order-view').onclick = (e)=>{
+        let options ={
+            "key": "<%= key %>",
+            "currency": 'INR',
+            "name": "RazorPay",
+            "description": 'Sample code to work in razorpay',
+            "order_id": document.getElementById('rzp-text').value,
+            "handler": (response)=>{
+                document.getElementById('order-pay-id').value = response.razorpay_payment_id
+                document.getElementById('order-id').value = response.razorpay_order_id
+                document.getElementById('order-sig').value = response.razorpay_signature
+            },
+            "theme":{
+                "color": "#0E89F2"
+            }
+        };
+        let rzpl = new Razorpay(options)
+        rzpl.open()
+        e.preventDefault();
+    }
+</script>
+<!-- <br>
+<button id= 'verify'>Verify</button>
+<script>
+    document.getElementById('verify').onclick = (e)=>{
+        var url = '/payment/verify';
+        var params = {
+            razorpay_order_id= document.getElementById('order-id').value,
+            razorpay_payment_id = document.getElementById('order-pay-id').value,
+            razorpay_signature = document.getElementById('order-sig').value
+        }
+        let xmlHttp = new XMLHttpRequest()
+        xmlHttp.onreadystatechange = (res)=>{
+            if(xmlHttp.readyState === 4){
+                alert(xmlHttp.responseText)
+            }
+            else{
+                alert(res)
+            }
+        }
+        xmlHttp.open("POST", url, true)
+        xmlHttp.setRequestHeader('Content-type', 'application/json')
+        xmlHttp.send(JSON.stringify(params))
+    }
+</script> -->

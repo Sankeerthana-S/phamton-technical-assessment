@@ -1,0 +1,22 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "Sankeerthana",
+            "email": "sankeerthana172000@gmail.com",
+            "password": "San"
+        },
+        {
+            "id": 2,
+            "name": "Visank",
+            "email": "vison@gmail.com",
+            "password": "Visank"
+        },
+        {
+            "id": 1,
+            "name": "Viaana",
+            "email": "viaana@gmail.com",
+            "password": "Viaana"
+        }
+    ]
+}
